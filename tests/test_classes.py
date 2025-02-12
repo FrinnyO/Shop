@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Product, Category
+from src.classes import Category, Product
 
 
 def test_create_product(product_1):

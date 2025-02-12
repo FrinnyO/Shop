@@ -27,9 +27,3 @@ class Category:
         self.__products__ = products
         self.__class__.category_count += 1
         self.__class__.product_count += len(products)
-
-    def __quan__(self):
-        return f"{self.name}, количество продуктов: {sum(x.quantity for x in self.__products__)} шт."
-
-    def __len__(self):
-        return len(self.__products__)
