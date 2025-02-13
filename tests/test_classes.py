@@ -64,3 +64,16 @@ def test_make_string_products(product_1, product_2):
         == f"""{product_1.name}, {product_1.price} руб. Остаток: {product_1.quantity} шт.
 {product_2.name}, {product_2.price} руб. Остаток: {product_2.quantity} шт.\n"""
     )
+
+
+def test_add_method_products(product_1, product_2):
+    assert product_1 + product_2 == 610000.0
+
+
+def test_str_product(product_1):
+    assert str(product_1) == "Samsung, 90000.0 руб. Остаток: 5 шт."
+
+
+def test_str_category(product_1, product_2):
+    tv_products = Category("TV", "Premium class", [product_1, product_2])
+    assert str(tv_products) == "TV, количество продуктов: 7 шт."

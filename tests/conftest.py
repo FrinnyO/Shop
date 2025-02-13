@@ -10,7 +10,7 @@ def product_1():
 
 @pytest.fixture
 def product_2():
-    return Product("Sony", "FullHD", 800000.0, 2)
+    return Product("Sony", "FullHD", 80000.0, 2)
 
 
 @pytest.fixture
