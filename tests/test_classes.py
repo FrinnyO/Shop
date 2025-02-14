@@ -77,3 +77,19 @@ def test_str_product(product_1):
 def test_str_category(product_1, product_2):
     tv_products = Category("TV", "Premium class", [product_1, product_2])
     assert str(tv_products) == "TV, количество продуктов: 7 шт."
+
+
+def test_add_same_product(product_smartphone, product_smartphone_2, product_lawn_grass, product_lawn_grass_2):
+    assert product_smartphone + product_smartphone_2 == 330000.0
+    assert product_lawn_grass + product_lawn_grass_2 == 12000.0
+
+
+def test_add_different_products(product_smartphone_2, product_lawn_grass_2):
+    with pytest.raises(TypeError):
+        assert product_smartphone_2 + product_lawn_grass_2
+
+
+def test_add_not_product(product_lawn_grass, product_lawn_grass_2):
+    grass_products = Category("Lawn Grass", "Для частных домов", [product_lawn_grass, product_lawn_grass_2])
+    with pytest.raises(TypeError):
+        assert grass_products.add_product("Wrong Product")
