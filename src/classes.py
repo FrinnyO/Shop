@@ -102,6 +102,15 @@ class Category(ProductGroup):
             product_list_string += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_list_string
 
+    def __len__(self):
+        return len(self.__products)
+
+    def middle_price(self):
+        try:
+            return round(sum(x.price for x in self.__products) / len(self), 2)
+        except ZeroDivisionError:
+            return 0
+
 
 class Order(ProductGroup):
 
