@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product
+from src.classes import BaseProduct, Category, Order, Product
 
 
 def test_create_product(product_1):
@@ -97,3 +97,53 @@ def test_add_not_product(product_lawn_grass, product_lawn_grass_2):
     )
     with pytest.raises(TypeError):
         assert grass_products.add_product("Wrong Product")
+
+
+def test_mixinprint(capsys):
+    Product("test_name", "test_description", 100, 2)
+    log_message = capsys.readouterr()
+    assert log_message.out.strip() == "Product(test_name, test_description, 100, 2)"
+
+
+def test_abstract_class_inheritance_error():
+    class TestProduct(BaseProduct):
+
+        def __init__(self):
+            pass
+
+    with pytest.raises(TypeError):
+        TestProduct()
+
+
+def test_create_order_object(product_1):
+    test_order = Order(product_1, 1)
+    assert test_order.product == product_1
+    assert test_order.quantity == 1
+    assert test_order.price == 90000.0
+    assert product_1.quantity == 4
+
+
+def test_create_order_failed(product_1):
+    with pytest.raises(ValueError):
+        Order(product_1, 8)
+
+
+def test_print_order(product_1):
+    test_order = Order(product_1, 1)
+    assert str(test_order) == "В заказе: Samsung - количество: 1"
+
+
+def test_add_product_to_order(product_1):
+    test_order = Order(product_1, 4)
+    test_order.add_product(product_1)
+    assert test_order.quantity == 5
+    assert test_order.price == 450000.0
+    assert product_1.quantity == 0
+    with pytest.raises(ValueError):
+        test_order.add_product(product_1)
+
+
+def test_add_product_to_order_failed(product_1, product_2):
+    test_order = Order(product_1, 2)
+    with pytest.raises(TypeError):
+        test_order.add_product(product_2)
