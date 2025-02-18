@@ -147,3 +147,18 @@ def test_add_product_to_order_failed(product_1, product_2):
     test_order = Order(product_1, 2)
     with pytest.raises(TypeError):
         test_order.add_product(product_2)
+
+
+def test_product_zero_quantity():
+    with pytest.raises(ValueError):
+        Product("Test", "Test", 100, 0)
+
+
+def test_middle_price_category(product_1, product_3):
+    test_category = Category("Test", "Test", [product_1, product_3])
+    assert test_category.middle_price() == 55000.0
+
+
+def test_category_zero_products():
+    empty_category = Category("Test", "Test", [])
+    assert empty_category.middle_price() == 0
